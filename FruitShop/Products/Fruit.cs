@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruitShop.Interfaces;
 
 namespace FruitShop.Products
 {
     public class Fruit
     {
-        public Fruit(string name, decimal unitPrice)
+        private readonly IOffer _offer;
+        public Fruit(IOffer offer, string name, decimal unitPrice)
         {
             Name = name;
             UnitPrice = unitPrice;
+            _offer = offer;
         }
         public string Name { get; set; }
         public decimal UnitPrice { get; set; }
@@ -17,7 +17,7 @@ namespace FruitShop.Products
 
         public decimal Cost()
         {
-            return Quantity * UnitPrice;
+           return _offer.GetPrice(Quantity, UnitPrice);
         }
     }
 }
